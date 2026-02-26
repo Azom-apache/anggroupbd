@@ -165,127 +165,77 @@
                     
                 </script>
                 </li>
-                <!-- Regular Menu Items Start -->
-                <li class="nav-item menu-item-has-children">
-                    <a class="nav-link hvr-underline-from-center" href="/"><span class="sk__menu-icon"><span
-                                class="icon-th"></span></span>Home</a>
-
-                </li>
-
-                {{-- <li class="nav-item"><a class="nav-link" href="page-about-us.html"><span class="sk__menu-icon"><span
-                                class="icon-user-circle"></span></span>About Us</a></li> --}}
-
-                <li class="nav-item menu-item-has-children">
-                    <a class="nav-link hvr-underline-from-center" href="#">
-                        <span class="sk__menu-icon">
-                            <span class="icon-th"></span>
-                        </span>
-                        About Us
-                    </a>
-                    <ul class="sk__submenu-ul">
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('ceomessage') }}">
-                                <span class="sk__menu-icon">
-                                    <span class="icon-th"></span>
-                                </span>
-                                Message from MD
+                <!-- Regular Menu Items Start (dynamic: all active menus with slug, ordered by sort_order) -->
+                @php
+                    $headerMenus = $headerMenus ?? collect();
+                    $headerMenusOrdered = $headerMenusOrdered ?? $headerMenus->values();
+                    $slugToUrl = [
+                        'home' => '/',
+                        'products' => route('productsPage'),
+                        'capacity' => route('capability'),
+                        'sustainability' => route('sustainability'),
+                        'machineries_automation' => route('mechineauto'),
+                        'news_events' => route('newsevent'),
+                        'cultural_activities' => route('culturalactivity'),
+                        'manufacturing_process' => route('mefacturing'),
+                        'career' => route('career'),
+                        'get_in_touch' => route('contact'),
+                    ];
+                @endphp
+                @foreach ($headerMenusOrdered as $menu)
+                    @if ($menu->slug === 'about_us')
+                        <li class="nav-item menu-item-has-children">
+                            <a class="nav-link hvr-underline-from-center" href="#">
+                                <span class="sk__menu-icon"><span class="icon-th"></span></span>
+                                {{ $menu->menu_name }}
                             </a>
-                            </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('boardofdirector') }}">
-                                <span class="sk__menu-icon">
-                                    <span class="icon-object-group"></span>
-                                </span>
-                                Company Profile
-                            </a>
+                            <ul class="sk__submenu-ul">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('ceomessage') }}">
+                                        <span class="sk__menu-icon"><span class="icon-th"></span></span>Message from MD
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('boardofdirector') }}">
+                                        <span class="sk__menu-icon"><span class="icon-object-group"></span></span>Company Profile
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-
-                    </ul>
-                </li>
-
-                <li class="nav-item menu-item-has-children">
-                    <a class="nav-link hvr-underline-from-center"href="{{ route('productsPage') }}"><span
-                            class="sk__menu-icon"><span class="icon-th"></span></span> Products</a>
-                    <ul class="sk__submenu-ul">
-                        @foreach (\App\Models\Category::with('products')->get() as $category)
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                    href="{{ route('categoryproduct', ['search' => $category->id]) }}"><span
-                                        class="sk__menu-icon"><span class="icon-th"></span></span>
-                                    {{ $category->name }}
-                                </a>
-
-                                <ul id="product-dropdown-{{ $category->id }}" class="nav-link">
-                                    @foreach ($category->products as $product)
-                                        <li>
-                                            <a href="{{ route('singleProduct', ['id' => $product->id]) }}"
-                                                class="nav-link">
-                                                {{ $product->name_en }}
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </li>
-                        @endforeach
-
-
-
-                    </ul>
-                </li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('capability') }}"><span
-                            class="sk__menu-icon"><span class="icon-th"></span></span>Capacity</a></li>
-
-                <li class="nav-item"><a class="nav-link" href="{{ route('sustainability') }}"><span
-                            class="sk__menu-icon"><span class="icon-th"></span></span>Sustainability</a></li>
-
-
-                <li class="nav-item menu-item-has-children">
-                    <a class="nav-link hvr-underline-from-center" href="#"><span class="sk__menu-icon"><span
-                                class="icon-th"></span></span>Sister Concerns​
-                    </a>
-                    <ul class="sk__submenu-ul">
-                        @foreach (\App\Models\Client::get() as $category)
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('sister', ['id' => $category->id]) }}"><span
-                                        class="sk__menu-icon"><span class="icon-th"></span>
-                                    </span>{{ $category->name }}
-                                </a>
-                            </li>
-                        @endforeach
-
-
-                    </ul>
-                </li>
-
-                <li class="nav-item"><a class="nav-link" href="{{ route('mechineauto') }}"><span
-                            class="sk__menu-icon"><span class="icon-codepen1"></span></span>Mechinaries Automation</a></li>
-
-
-                <li class="nav-item"><a class="nav-link" href="{{ route('newsevent') }}"><span
-                            class="sk__menu-icon"><span class="icon-codepen1"></span></span>News & Events</a></li>
-
-
-                <li class="nav-item">
-                     <a class="nav-link" href="{{ route('culturalactivity') }}"><span
-                                class="sk__menu-icon"><span class="icon-codepen1"></span>
-                            </span>Cultural Activities
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('mefacturing') }}"><span
-                               class="sk__menu-icon"><span class="icon-codepen1"></span>
-                           </span>Manufacturing Process
-                   </a>
-               </li>
-               
-           <li class="nav-item"><a class="nav-link" href="{{ route('career') }}"><span
-                            class="sk__menu-icon"><span class="icon-codepen1"></span></span>Career​</a></li>
-    
-                    
-                <li class="nav-item"><a class="nav-link" href="{{ route('contact') }}"><span
-                            class="sk__menu-icon"><span class="icon-envelope-o"></span></span>Get In Touch</a>
-                </li>
+                    @elseif ($menu->slug === 'products')
+                        <li class="nav-item menu-item-has-children">
+                            <a class="nav-link hvr-underline-from-center" href="{{ route('productsPage') }}"><span class="sk__menu-icon"><span class="icon-th"></span></span>{{ $menu->menu_name }}</a>
+                            <ul class="sk__submenu-ul">
+                                @foreach (\App\Models\Category::with('products')->get() as $category)
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('categoryproduct', ['search' => $category->id]) }}"><span class="sk__menu-icon"><span class="icon-th"></span></span>{{ $category->name }}</a>
+                                        <ul id="product-dropdown-{{ $category->id }}" class="nav-link">
+                                            @foreach ($category->products as $product)
+                                                <li><a href="{{ route('singleProduct', ['id' => $product->id]) }}" class="nav-link">{{ $product->name_en }}</a></li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @elseif ($menu->slug === 'sister_concerns')
+                        <li class="nav-item menu-item-has-children">
+                            <a class="nav-link hvr-underline-from-center" href="#"><span class="sk__menu-icon"><span class="icon-th"></span></span>{{ $menu->menu_name }}</a>
+                            <ul class="sk__submenu-ul">
+                                @foreach (\App\Models\Client::get() as $category)
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('sister', ['id' => $category->id]) }}"><span class="sk__menu-icon"><span class="icon-th"></span></span>{{ $category->name }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @else
+                        @php $href = $menu->url ?? ($slugToUrl[$menu->slug] ?? '#'); @endphp
+                        <li class="nav-item">
+                            <a class="nav-link hvr-underline-from-center" href="{{ $href }}"><span class="sk__menu-icon"><span class="icon-th"></span></span>{{ $menu->menu_name }}</a>
+                        </li>
+                    @endif
+                @endforeach
 
 
 

@@ -10,10 +10,13 @@ class Menu extends Model
 {
     use HasFactory;
     protected $fillable = [
+    'slug',
     'menu_name',
+    'url',
     'client_id',
     'title',
     'status',
+    'sort_order',
     'description_en',
     'image',
 ];

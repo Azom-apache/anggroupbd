@@ -31,7 +31,9 @@ class MenuController extends Controller
             'skipPermission'=>false,
             'columns' => [
                 Column::make('id'),
+                Column::make('slug'),
                 Column::make('menu_name'),
+                Column::make('sort_order'),
                 Column::make('client.name'),
                 Column::make('status'),
             ],
@@ -46,8 +48,11 @@ class MenuController extends Controller
             'name'   => 'admin.menu',
             'heading' => self::$heading,
             'fields' => [
-               Field::select('client_id')->label('Sister Concerns')->options(Client::select('id', 'name')->get()),
+               Field::text('slug')->label('Slug (for header nav, e.g. home, about_us)'),
                 Field::text('menu_name')->required(),
+                Field::text('url')->label('URL (optional, leave empty to use route in layout)'),
+                Field::number('sort_order')->label('Sort Order'),
+                Field::select('client_id')->label('Sister Concerns')->options(Client::select('id', 'name')->get()),
                 Field::text('title'),
                 Field::file('image'),
                 Field::textarea('description_en')->label('Description ')->isEditor(),
@@ -62,13 +67,15 @@ class MenuController extends Controller
     {
         $validated = $request->validate([
               'menu_name' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:64',
+            'url' => 'nullable|string|max:500',
+            'sort_order' => 'nullable|integer|min:0',
             'client_id' => 'nullable',
             'title' => 'nullable',
             'status' => 'nullable',
             'description_en' => 'nullable',
             'image' => 'nullable',
         ]);
-        $validated['created_by'] =auth()->user()->id; 
         if (!empty($validated['image'])) {
             $validated['image'] = Image::store('image', 'upload/product');
         }
@@ -103,8 +110,11 @@ class MenuController extends Controller
                 'edit'   => 'Edit menu',
             ],
             'fields' => [
-                Field::select('client_id')->label('Sister Concerns')->options(Client::select('id', 'name')->get()),
+                Field::text('slug')->label('Slug (for header nav)'),
                 Field::text('menu_name')->required(),
+                Field::text('url')->label('URL (optional)'),
+                Field::number('sort_order')->label('Sort Order'),
+                Field::select('client_id')->label('Sister Concerns')->options(Client::select('id', 'name')->get()),
                 Field::text('title'),
                 Field::file('image'),
                 Field::textarea('description_en')->label('Description ')->isEditor(),
@@ -118,6 +128,9 @@ class MenuController extends Controller
     {
         $validated = $request->validate([
             'menu_name' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:64',
+            'url' => 'nullable|string|max:500',
+            'sort_order' => 'nullable|integer|min:0',
             'client_id' => 'nullable',
             'title' => 'nullable',
             'status' => 'nullable',

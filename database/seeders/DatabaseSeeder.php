@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call(LaratrustSeeder::class);
-
+        $this->call(MenuSeeder::class);
         $user->addRole(Role::whereName('user')->first());
         $admin->addRole(Role::whereName('admin')->first());
     }
