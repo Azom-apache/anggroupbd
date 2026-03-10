@@ -350,10 +350,10 @@
                     <div class="container sk__supercontainer position-relative">
 
                         <div class="row footer-top">
-                            <div class="col-12 col-sm-6 top-footer-logo">
+                            <a href="/" class="col-12 col-sm-6 top-footer-logo">
                                 <img src="{{ \App\Lib\Resource\Image::url(\App\Models\ConfigDictionary::get('logo')) }}"
                                     alt="Website logo for the footer.">
-                            </div>
+                            </a>
                             <div class="col-12 col-sm-6 top-footer-tagline">
                                 <h5 class="h5-elegant">ADVANCEMENT IN <strong>DESIGN</strong></h5>
                             </div>
