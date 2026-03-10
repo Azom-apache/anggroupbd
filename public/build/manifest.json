@@ -13,7 +13,7 @@
     "src": "node_modules/tw-elements/dist/js/chartjs-plugin-datalabels.es.js"
   },
   "resources/css/app.css": {
-    "file": "assets/app-45e1113f.css",
+    "file": "assets/app-d26f08b9.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
