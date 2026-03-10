@@ -8595,7 +8595,7 @@ a.footer-bottom-right-links:last-child {
 	}
 
 	.top-footer-logo {
-		max-width: 260px;
+		max-width: 100%;
 		margin: 0 auto 12px;
 	}
 
