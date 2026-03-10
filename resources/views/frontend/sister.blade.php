@@ -6,15 +6,22 @@
         color: black !important;
     }
     table {
-    color: black;
-}
+        color: black;
+    }
+    #section-0 p img {
+        object-fit: contain !important;
+        max-width: 100%;
+        height: auto !important;
+        display: block;
+        margin: 0 auto;
+    }
 </style>
 
     <section
         class="sk__animated-header sk__header-y-m dark-shade-7-bg dark-shade-5-border sk__parallax-background-section sk__parallax-fixer-ignore-height"
         style="opacity: 1; transform: translate(0px, 0px);">
 
-        <div class="w-full bg-gray-800 rounded-lg shadow p-16">
+        <div class="w-full bg-gray-800 rounded-lg shadow p-2">
              <div >
 
                 @if (!empty($sister->image))
@@ -32,7 +39,7 @@
                         {{-- Image Viewer --}}
                         <div class="mb-8 text-center">
                             <img src="{{ asset($sister->image) }}" alt="Image"
-                                class="mx-auto max-w-full h-32 rounded shadow">
+                                class="mx-auto max-w-full h-56 object-contain rounded shadow">
                         </div>
                     @endif
                 @endif
